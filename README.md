@@ -90,7 +90,7 @@
 ```bash
 cd Backend
 npm install
-npm run dev
+node index.js
 ```
 
 ### Frontend
