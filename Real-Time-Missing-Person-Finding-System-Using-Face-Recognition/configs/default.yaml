@@ -1,0 +1,70 @@
+# Default configuration for face recognition pipeline
+
+# Video source: 0 for webcam, path to video file, or RTSP URL
+video_source: 0
+
+# Device: cuda or cpu
+device: cuda
+
+# Queue configuration
+queue_size: 1000
+drop_policy: drop-new  # drop-new or drop-old
+
+# Embedding stage
+embedding_workers: 2
+batch_size: 1
+batch_wait_time: 0.0  # seconds to wait before processing batch
+
+# Logging
+log_level: INFO  # DEBUG, INFO, WARNING, ERROR
+
+# Embeddings and recognition
+embeddings_dir: embeddings
+save_embeddings: true  # Save embeddings to disk during real-time detection
+embeddings_runtime_dir: embeddings/runtime  # Directory for runtime embeddings
+embeddings_index_file: embeddings/runtime_index.csv  # Index file for runtime embeddings
+recognition_threshold: 0.45  # Cosine similarity threshold (-1 to 1)
+recognition_topk: 5
+
+#Crowd monitoring
+crowd_enabled: true
+crowd_model_path: src/crowd/task_two_model_best.pth.tar
+crowd_threshold: 1000.0
+
+# Health endpoint
+health_port: 8080
+
+# Output
+save_annotated_frames: true
+annotated_frames_dir: results
+
+# Detector settings
+detector_model_path: yolov8n-face.pt
+detector_conf_thresh: 0.5
+detector_imgsz: 384
+detector_half: true
+
+# Capture settings
+video_width: 640
+video_height: 480
+
+# Tracker settings
+tracker_max_age: 100
+tracker_n_init: 3
+tracker_max_iou_distance: 0.7
+
+# Embedding model settings
+embedding_input_size: 160
+embedding_pretrained: vggface2  # vggface2 or casia-webface
+
+# Error handling
+restart_on_error: false
+max_restarts: 3
+
+# Batch recognition (process images from exported_images folder)
+batch_recognition_enabled: true
+exported_images_dir: exported_images  # Folder to watch for query images
+batch_recognition_results_dir: results/batch_recognition  # Folder to save results
+batch_recognition_scan_interval: 2.0  # Seconds between folder scans
+batch_recognition_search_runtime: true  # Search in runtime embeddings
+batch_recognition_search_precomputed: true  # Search in precomputed embeddings
